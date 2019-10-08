@@ -1,10 +1,8 @@
 <center><b>计算机组成原理Ⅱ —— 第一次作业</b></center>
-
 <center>计科一班 王昊恩 3018216021</center> 
-
 本次作业源代码已经上传至 `github` 。
 
-`github`链接：
+`github`链接：[https://github.com/FireSSang/19_20_1_Computer_Organization](https://github.com/FireSSang/19_20_1_Computer_Organization)
 
 1. 本章书后习题 `2.63` 。
 
@@ -25,12 +23,70 @@
        int xsrl = (unsigned) x >> k;
        
        int w = 8 * sizeof(int);
-       int sign_mask = xsrl & (1 << (w - k - 1)); //判断符号位为1还是0
-       int mask = (-sign_mask) << (w - k);
+       int sign_mask = xsrl & (1 << (w - k - 1)); 
+       //若符号位为0，该值为0
+       //否则为000...001000...000形式
+       int mask = ~((sign_mask << 1) - 1);
        //如果符号位为1，mask为111...1100000...000000
        //如果符号位为0，mask为000...0000000...000000
        return xsrl | mask; //前k为改为mask前k位，实现符号位扩展
    }
+   ```
+
+   代码实现如下（源代码在 `github` 仓库中）：
+
+   ```C++
+   #include <iostream>
+   using namespace std;
+   
+   unsigned srl(unsigned x,int k) {
+       /*Perform shift arithmetically*/
+       unsigned xsra = (int) x >> k;
+   
+       int w = 8 * sizeof(int);
+       int mask = (1 << (w - k)) - 1; //前k位为0，后w-k位为1
+       return xsra & mask; //前k位置为0，后k位不变
+   }
+   
+   int sra(int x, int k) {
+       /*Perform shift logically*/
+       int xsrl = (unsigned) x >> k;
+   
+       int w = 8 * sizeof(int);
+       int sign_mask = xsrl & (1 << (w - k - 1)); //若符号位为0，该值为0
+       //否则为000...001000...000形式
+       int mask = ~((sign_mask << 1) - 1);
+       //如果符号位为1，mask为111...1100000...000000
+       //如果符号位为0，mask为000...0000000...000000
+       return xsrl | mask; //前k为改为mask前k位，实现符号位扩展
+   }
+   
+   int main()
+   {
+       int date = 19200000 + 60817; //一个比较大的常用素数
+       cout << (date >> 7) << endl;
+       cout << srl(date, 7) << endl;
+       cout << sra(date, 7) << endl;
+   
+       int datee = -1 * date;
+       cout << (datee >> 7) << endl;
+       cout << srl(datee, 7) << endl;
+       cout << sra(datee, 7) << endl;
+   
+       return 0;
+   }
+   ```
+
+   ```C++
+   "C:\MyFiles\19-20 1\19_20_1_Computer_Organization\homeworks\homework1_1\cmake-build-debug\homework1_1.exe"
+   150475
+   150475
+   150475
+   -150476
+   33403956
+   -150476
+   
+   Process finished with exit code 0
    ```
 
 2. 假设尾数部分位宽为 `n` ，阶码位宽为 `k` 。请给出最小/最大非规格化负数、最小/最大规格化整数、 `-1` 的数值表达式。
