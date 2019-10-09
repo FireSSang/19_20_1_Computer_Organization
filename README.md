@@ -7,8 +7,8 @@
 
 
 仓库文件夹结构说明：      
-homeworks/　　　　　　　　　作业报告及部分测试用代码          
-experiment/　　　　　　　　实验代码及实验报告（如果有）         
+homeworks/　　　　　　　作业报告及部分测试用代码          
+experiment/　　　　　　　实验代码及实验报告（如果有）         
 lectures/　　　　　　　　　授课ppt                
 
 
