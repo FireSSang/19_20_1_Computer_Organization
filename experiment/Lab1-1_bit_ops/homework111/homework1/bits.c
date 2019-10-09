@@ -264,15 +264,15 @@ int bitCount(int x) {
     count = count + (x & mask); //collect bits:3 7 11 15 19 23 27 31
     // store the number of these four positions 1 every 4 bits
 
-    int res = (count & 0x0f) +
-            ((count >> 4) & 0x0f) +
-            ((count >> 8) & 0x0f) +
-            ((count >> 12) & 0x0f) +
-            ((count >> 16) & 0x0f) +
-            ((count >> 20) & 0x0f) +
-            ((count >> 24) & 0x0f) +
-            ((count >> 28) & 0x0f);
     // extract results every 4 digits
-    return res;
+    //declare other variable may cause error
+    return (count & 0x0f) +
+           ((count >> 4) & 0x0f) +
+           ((count >> 8) & 0x0f) +
+           ((count >> 12) & 0x0f) +
+           ((count >> 16) & 0x0f) +
+           ((count >> 20) & 0x0f) +
+           ((count >> 24) & 0x0f) +
+           ((count >> 28) & 0x0f);
 }
 
