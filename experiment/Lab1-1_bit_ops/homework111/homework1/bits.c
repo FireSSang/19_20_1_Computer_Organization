@@ -264,7 +264,7 @@ int bitCount(int x) {
     count = count + (x & mask); //collect bits:3 7 11 15 19 23 27 31
     // store the number of these four positions 1 every 4 bits
 
-    res = (count & 0x0f) +
+    int res = (count & 0x0f) +
             ((count >> 4) & 0x0f) +
             ((count >> 8) & 0x0f) +
             ((count >> 12) & 0x0f) +
